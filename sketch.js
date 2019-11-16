@@ -1,7 +1,7 @@
 var timeKeeper = 0;
 var wanderers = [];
 let noiseScale = 1000;//bigger the scale the larger the over all curves 
-let noiseStrength = 18; //bigger the strength the more divergent the lines are from each other
+let noiseStrength = 10; //bigger the strength the more divergent the lines are from each other/total 
 
 let klimFont;
 
@@ -122,8 +122,8 @@ class Wanderer{
     this.currentX = this.originX;
     this.currentY = this.originY;
     this.angle = 0;
-    this.deltaAngle = 0;
-    
+    // this.deltaAngle = 0;
+    // this.angleStrength = 10;
     this.stepSize = 4;
   }
   move(){
@@ -132,12 +132,21 @@ class Wanderer{
     this.angle = newAngle;
     this.prevX = this.currentX;
     this.prevY = this.currentY;
+
+    let mSlope = sin(this.angle)/cos(this.angle);
     
-    this.currentX += cos(this.angle) * this.stepSize;
-    this.currentY += sin(this.angle) * this.stepSize;
+    let deltaX = cos(this.angle) * this.stepSize;
+    let deltaY = sin(this.angle) * this.stepSize;
+
+    this.currentX += deltaX;
+    this.currentY += deltaY;
     
-    // this.stepSize = log(timeKeeper);
-    
+    // var stillGettingThere = true;
+    // var rayCastPos = [this.currentX, this.currentY];
+    // var dx = this.currentX - this.prevX;
+
+    // y = mx + b
+    // this.stepSize = log(timeKeeper);  
   }
   display(){
     push();
